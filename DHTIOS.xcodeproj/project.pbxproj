@@ -1,0 +1,642 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A127962919BF10E400EBB843 /* BEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = A127962819BF10E400EBB843 /* BEncoding.m */; };
+		A127962F19BF123F00EBB843 /* BData.m in Sources */ = {isa = PBXBuildFile; fileRef = A127962E19BF123F00EBB843 /* BData.m */; };
+		A1946D1119BDF7A80088DC5B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946D1019BDF7A80088DC5B /* main.m */; };
+		A1946D1419BDF7A80088DC5B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946D1319BDF7A80088DC5B /* AppDelegate.m */; };
+		A1946D1719BDF7A80088DC5B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946D1619BDF7A80088DC5B /* ViewController.m */; };
+		A1946D1A19BDF7A80088DC5B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1946D1819BDF7A80088DC5B /* Main.storyboard */; };
+		A1946D1C19BDF7A80088DC5B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1946D1B19BDF7A80088DC5B /* Images.xcassets */; };
+		A1946D4019BDF9560088DC5B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1946D3F19BDF9560088DC5B /* CFNetwork.framework */; };
+		A1946D4219BDF9660088DC5B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1946D4119BDF9660088DC5B /* SystemConfiguration.framework */; };
+		A1946D4519BDFCFA0088DC5B /* DHTNode.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946D4419BDFCFA0088DC5B /* DHTNode.m */; };
+		A1946D4819BDFD030088DC5B /* DHT.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946D4719BDFD030088DC5B /* DHT.m */; };
+		A1946E1719BE01AA0088DC5B /* libNAChloride.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1946DD519BE00F70088DC5B /* libNAChloride.a */; };
+		A1946E2319BE059A0088DC5B /* GCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946E2219BE059A0088DC5B /* GCDTimer.m */; };
+		A1946E2619BE0D140088DC5B /* M13OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946E2519BE0D140088DC5B /* M13OrderedDictionary.m */; };
+		A1946E2F19BE29C80088DC5B /* libSodiumObjc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1946E2E19BE29C80088DC5B /* libSodiumObjc.a */; };
+		A1946E4919BEA83F0088DC5B /* NSData+XORd.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946E4819BEA83F0088DC5B /* NSData+XORd.m */; };
+		A1946F2E19BEDE970088DC5B /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946E4E19BEDE960088DC5B /* GCDAsyncSocket.m */; };
+		A1946F2F19BEDE970088DC5B /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946E5019BEDE960088DC5B /* GCDAsyncUdpSocket.m */; };
+		A1946FAE19BEE27B0088DC5B /* DHTTransportManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1946FAD19BEE27B0088DC5B /* DHTTransportManager.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A1946D2219BDF7A80088DC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1946D0319BDF7A80088DC5B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A1946D0A19BDF7A80088DC5B;
+			remoteInfo = DHTIOS;
+		};
+		A1946DD419BE00F70088DC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1946DCE19BE00F70088DC5B /* NAChloride.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 003BB2BC1888A16E0019D88F;
+			remoteInfo = NAChloride;
+		};
+		A1946DD619BE00F70088DC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1946DCE19BE00F70088DC5B /* NAChloride.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A6427EFB103D46EFB5A03F92;
+			remoteInfo = Tests;
+		};
+		A1946E1819BE01AE0088DC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1946DCE19BE00F70088DC5B /* NAChloride.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 003BB2BB1888A16E0019D88F;
+			remoteInfo = NAChloride;
+		};
+		A1946E4319BEA6330088DC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1946D5E19BE009D0088DC5B /* SodiumObjc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A7BF29CA1947630800BB35C5;
+			remoteInfo = SodiumObjc;
+		};
+		A1946E4519BEA6330088DC5B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A1946D5E19BE009D0088DC5B /* SodiumObjc.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A7BF29DA1947630800BB35C5;
+			remoteInfo = SodiumObjcTests;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A127962719BF10E400EBB843 /* BEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEncoding.h; sourceTree = "<group>"; };
+		A127962819BF10E400EBB843 /* BEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEncoding.m; sourceTree = "<group>"; };
+		A127962D19BF123F00EBB843 /* BData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BData.h; sourceTree = "<group>"; };
+		A127962E19BF123F00EBB843 /* BData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BData.m; sourceTree = "<group>"; };
+		A1946D0B19BDF7A80088DC5B /* DHTIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DHTIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1946D0F19BDF7A80088DC5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1946D1019BDF7A80088DC5B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A1946D1219BDF7A80088DC5B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A1946D1319BDF7A80088DC5B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A1946D1519BDF7A80088DC5B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A1946D1619BDF7A80088DC5B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A1946D1919BDF7A80088DC5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A1946D1B19BDF7A80088DC5B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A1946D2119BDF7A80088DC5B /* DHTIOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DHTIOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1946D3F19BDF9560088DC5B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		A1946D4119BDF9660088DC5B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		A1946D4319BDFCFA0088DC5B /* DHTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHTNode.h; sourceTree = "<group>"; };
+		A1946D4419BDFCFA0088DC5B /* DHTNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHTNode.m; sourceTree = "<group>"; };
+		A1946D4619BDFD030088DC5B /* DHT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHT.h; sourceTree = "<group>"; };
+		A1946D4719BDFD030088DC5B /* DHT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHT.m; sourceTree = "<group>"; };
+		A1946D5E19BE009D0088DC5B /* SodiumObjc.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SodiumObjc.xcodeproj; path = SDKs/SodiumObjc/SodiumObjc.xcodeproj; sourceTree = "<group>"; };
+		A1946DCE19BE00F70088DC5B /* NAChloride.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = NAChloride.xcodeproj; path = SDKs/NAChloride/NAChloride.xcodeproj; sourceTree = "<group>"; };
+		A1946E2119BE059A0088DC5B /* GCDTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDTimer.h; sourceTree = "<group>"; };
+		A1946E2219BE059A0088DC5B /* GCDTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDTimer.m; sourceTree = "<group>"; };
+		A1946E2419BE0D140088DC5B /* M13OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = M13OrderedDictionary.h; path = SDKs/M13OrderedDictionary/M13OrderedDictionary.h; sourceTree = "<group>"; };
+		A1946E2519BE0D140088DC5B /* M13OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = M13OrderedDictionary.m; path = SDKs/M13OrderedDictionary/M13OrderedDictionary.m; sourceTree = "<group>"; };
+		A1946E2E19BE29C80088DC5B /* libSodiumObjc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSodiumObjc.a; path = "SDKs/SodiumObjc/build/Debug-iphoneos/libSodiumObjc.a"; sourceTree = "<group>"; };
+		A1946E4719BEA83F0088DC5B /* NSData+XORd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+XORd.h"; sourceTree = "<group>"; };
+		A1946E4819BEA83F0088DC5B /* NSData+XORd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+XORd.m"; sourceTree = "<group>"; };
+		A1946E4D19BEDE960088DC5B /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		A1946E4E19BEDE960088DC5B /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		A1946E4F19BEDE960088DC5B /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		A1946E5019BEDE960088DC5B /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		A1946FAC19BEE27B0088DC5B /* DHTTransportManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DHTTransportManager.h; sourceTree = "<group>"; };
+		A1946FAD19BEE27B0088DC5B /* DHTTransportManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DHTTransportManager.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A1946D0819BDF7A80088DC5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1946E2F19BE29C80088DC5B /* libSodiumObjc.a in Frameworks */,
+				A1946E1719BE01AA0088DC5B /* libNAChloride.a in Frameworks */,
+				A1946D4219BDF9660088DC5B /* SystemConfiguration.framework in Frameworks */,
+				A1946D4019BDF9560088DC5B /* CFNetwork.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1946D1E19BDF7A80088DC5B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1946D0219BDF7A80088DC5B = {
+			isa = PBXGroup;
+			children = (
+				A1946E1E19BE05800088DC5B /* SDKs */,
+				A1946E1F19BE058C0088DC5B /* Frameworks */,
+				A1946D0D19BDF7A80088DC5B /* DHTIOS */,
+				A1946D0C19BDF7A80088DC5B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1946D0C19BDF7A80088DC5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1946D0B19BDF7A80088DC5B /* DHTIOS.app */,
+				A1946D2119BDF7A80088DC5B /* DHTIOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1946D0D19BDF7A80088DC5B /* DHTIOS */ = {
+			isa = PBXGroup;
+			children = (
+				A1946E4719BEA83F0088DC5B /* NSData+XORd.h */,
+				A1946E4819BEA83F0088DC5B /* NSData+XORd.m */,
+				A1946D1219BDF7A80088DC5B /* AppDelegate.h */,
+				A1946D1319BDF7A80088DC5B /* AppDelegate.m */,
+				A1946D1519BDF7A80088DC5B /* ViewController.h */,
+				A1946D1619BDF7A80088DC5B /* ViewController.m */,
+				A1946D1819BDF7A80088DC5B /* Main.storyboard */,
+				A1946D1B19BDF7A80088DC5B /* Images.xcassets */,
+				A1946D0E19BDF7A80088DC5B /* Supporting Files */,
+				A1946D4319BDFCFA0088DC5B /* DHTNode.h */,
+				A1946D4419BDFCFA0088DC5B /* DHTNode.m */,
+				A1946D4619BDFD030088DC5B /* DHT.h */,
+				A1946D4719BDFD030088DC5B /* DHT.m */,
+				A1946FAC19BEE27B0088DC5B /* DHTTransportManager.h */,
+				A1946FAD19BEE27B0088DC5B /* DHTTransportManager.m */,
+				A127962719BF10E400EBB843 /* BEncoding.h */,
+				A127962819BF10E400EBB843 /* BEncoding.m */,
+				A127962D19BF123F00EBB843 /* BData.h */,
+				A127962E19BF123F00EBB843 /* BData.m */,
+			);
+			path = DHTIOS;
+			sourceTree = "<group>";
+		};
+		A1946D0E19BDF7A80088DC5B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A1946D0F19BDF7A80088DC5B /* Info.plist */,
+				A1946D1019BDF7A80088DC5B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A1946DCF19BE00F70088DC5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1946DD519BE00F70088DC5B /* libNAChloride.a */,
+				A1946DD719BE00F70088DC5B /* Tests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1946E1E19BE05800088DC5B /* SDKs */ = {
+			isa = PBXGroup;
+			children = (
+				A1946E4B19BEDE960088DC5B /* CocoaAsyncSocket */,
+				A1946E4A19BEDE5F0088DC5B /* M13OrderedDictionary */,
+				A1946E2019BE059A0088DC5B /* GCDTimer */,
+				A1946DCE19BE00F70088DC5B /* NAChloride.xcodeproj */,
+				A1946D5E19BE009D0088DC5B /* SodiumObjc.xcodeproj */,
+			);
+			name = SDKs;
+			sourceTree = "<group>";
+		};
+		A1946E1F19BE058C0088DC5B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A1946E2E19BE29C80088DC5B /* libSodiumObjc.a */,
+				A1946D4119BDF9660088DC5B /* SystemConfiguration.framework */,
+				A1946D3F19BDF9560088DC5B /* CFNetwork.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A1946E2019BE059A0088DC5B /* GCDTimer */ = {
+			isa = PBXGroup;
+			children = (
+				A1946E2119BE059A0088DC5B /* GCDTimer.h */,
+				A1946E2219BE059A0088DC5B /* GCDTimer.m */,
+			);
+			name = GCDTimer;
+			path = SDKs/GCDTimer/Source;
+			sourceTree = "<group>";
+		};
+		A1946E3E19BEA6330088DC5B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1946E4419BEA6330088DC5B /* libSodiumObjc.a */,
+				A1946E4619BEA6330088DC5B /* SodiumObjcTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A1946E4A19BEDE5F0088DC5B /* M13OrderedDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				A1946E2419BE0D140088DC5B /* M13OrderedDictionary.h */,
+				A1946E2519BE0D140088DC5B /* M13OrderedDictionary.m */,
+			);
+			name = M13OrderedDictionary;
+			sourceTree = "<group>";
+		};
+		A1946E4B19BEDE960088DC5B /* CocoaAsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				A1946E4D19BEDE960088DC5B /* GCDAsyncSocket.h */,
+				A1946E4E19BEDE960088DC5B /* GCDAsyncSocket.m */,
+				A1946E4F19BEDE960088DC5B /* GCDAsyncUdpSocket.h */,
+				A1946E5019BEDE960088DC5B /* GCDAsyncUdpSocket.m */,
+			);
+			name = CocoaAsyncSocket;
+			path = SDKs/CocoaAsyncSocket/GCD;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A1946D0A19BDF7A80088DC5B /* DHTIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1946D2B19BDF7A80088DC5B /* Build configuration list for PBXNativeTarget "DHTIOS" */;
+			buildPhases = (
+				A1946D0719BDF7A80088DC5B /* Sources */,
+				A1946D0819BDF7A80088DC5B /* Frameworks */,
+				A1946D0919BDF7A80088DC5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1946E1919BE01AE0088DC5B /* PBXTargetDependency */,
+			);
+			name = DHTIOS;
+			productName = DHTIOS;
+			productReference = A1946D0B19BDF7A80088DC5B /* DHTIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A1946D2019BDF7A80088DC5B /* DHTIOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1946D2E19BDF7A80088DC5B /* Build configuration list for PBXNativeTarget "DHTIOSTests" */;
+			buildPhases = (
+				A1946D1D19BDF7A80088DC5B /* Sources */,
+				A1946D1E19BDF7A80088DC5B /* Frameworks */,
+				A1946D1F19BDF7A80088DC5B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1946D2319BDF7A80088DC5B /* PBXTargetDependency */,
+			);
+			name = DHTIOSTests;
+			productName = DHTIOSTests;
+			productReference = A1946D2119BDF7A80088DC5B /* DHTIOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A1946D0319BDF7A80088DC5B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = Andy;
+				TargetAttributes = {
+					A1946D0A19BDF7A80088DC5B = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					A1946D2019BDF7A80088DC5B = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = A1946D0A19BDF7A80088DC5B;
+					};
+				};
+			};
+			buildConfigurationList = A1946D0619BDF7A80088DC5B /* Build configuration list for PBXProject "DHTIOS" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				English,
+			);
+			mainGroup = A1946D0219BDF7A80088DC5B;
+			productRefGroup = A1946D0C19BDF7A80088DC5B /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A1946DCF19BE00F70088DC5B /* Products */;
+					ProjectRef = A1946DCE19BE00F70088DC5B /* NAChloride.xcodeproj */;
+				},
+				{
+					ProductGroup = A1946E3E19BEA6330088DC5B /* Products */;
+					ProjectRef = A1946D5E19BE009D0088DC5B /* SodiumObjc.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				A1946D0A19BDF7A80088DC5B /* DHTIOS */,
+				A1946D2019BDF7A80088DC5B /* DHTIOSTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A1946DD519BE00F70088DC5B /* libNAChloride.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libNAChloride.a;
+			remoteRef = A1946DD419BE00F70088DC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A1946DD719BE00F70088DC5B /* Tests.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Tests.app;
+			remoteRef = A1946DD619BE00F70088DC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A1946E4419BEA6330088DC5B /* libSodiumObjc.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSodiumObjc.a;
+			remoteRef = A1946E4319BEA6330088DC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A1946E4619BEA6330088DC5B /* SodiumObjcTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SodiumObjcTests.xctest;
+			remoteRef = A1946E4519BEA6330088DC5B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A1946D0919BDF7A80088DC5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1946D1A19BDF7A80088DC5B /* Main.storyboard in Resources */,
+				A1946D1C19BDF7A80088DC5B /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1946D1F19BDF7A80088DC5B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A1946D0719BDF7A80088DC5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1946E2619BE0D140088DC5B /* M13OrderedDictionary.m in Sources */,
+				A1946E2319BE059A0088DC5B /* GCDTimer.m in Sources */,
+				A1946D1719BDF7A80088DC5B /* ViewController.m in Sources */,
+				A1946E4919BEA83F0088DC5B /* NSData+XORd.m in Sources */,
+				A1946D1419BDF7A80088DC5B /* AppDelegate.m in Sources */,
+				A127962F19BF123F00EBB843 /* BData.m in Sources */,
+				A1946FAE19BEE27B0088DC5B /* DHTTransportManager.m in Sources */,
+				A1946D4519BDFCFA0088DC5B /* DHTNode.m in Sources */,
+				A127962919BF10E400EBB843 /* BEncoding.m in Sources */,
+				A1946F2F19BEDE970088DC5B /* GCDAsyncUdpSocket.m in Sources */,
+				A1946F2E19BEDE970088DC5B /* GCDAsyncSocket.m in Sources */,
+				A1946D4819BDFD030088DC5B /* DHT.m in Sources */,
+				A1946D1119BDF7A80088DC5B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A1946D1D19BDF7A80088DC5B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A1946D2319BDF7A80088DC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A1946D0A19BDF7A80088DC5B /* DHTIOS */;
+			targetProxy = A1946D2219BDF7A80088DC5B /* PBXContainerItemProxy */;
+		};
+		A1946E1919BE01AE0088DC5B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NAChloride;
+			targetProxy = A1946E1819BE01AE0088DC5B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A1946D1819BDF7A80088DC5B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A1946D1919BDF7A80088DC5B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A1946D2919BDF7A80088DC5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A1946D2A19BDF7A80088DC5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A1946D2C19BDF7A80088DC5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"${PROJECT_ROOT}/SDKs/NAChloride/NAChloride/**",
+				);
+				INFOPLIST_FILE = DHTIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SDKs/SodiumObjc/build/Debug-iphoneos",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/SDKs/NAChloride/NAChloride/** ${SRCROOT}/SDKs/SodiumObjc/**";
+			};
+			name = Debug;
+		};
+		A1946D2D19BDF7A80088DC5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode6-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"${PROJECT_ROOT}/SDKs/NAChloride/NAChloride/**",
+				);
+				INFOPLIST_FILE = DHTIOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SDKs/SodiumObjc/build/Debug-iphoneos",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/SDKs/NAChloride/NAChloride/** ${SRCROOT}/SDKs/SodiumObjc/**";
+			};
+			name = Release;
+		};
+		A1946D2F19BDF7A80088DC5B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DHTIOS.app/DHTIOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DHTIOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		A1946D3019BDF7A80088DC5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/DHTIOS.app/DHTIOS";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = DHTIOSTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A1946D0619BDF7A80088DC5B /* Build configuration list for PBXProject "DHTIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1946D2919BDF7A80088DC5B /* Debug */,
+				A1946D2A19BDF7A80088DC5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1946D2B19BDF7A80088DC5B /* Build configuration list for PBXNativeTarget "DHTIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1946D2C19BDF7A80088DC5B /* Debug */,
+				A1946D2D19BDF7A80088DC5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A1946D2E19BDF7A80088DC5B /* Build configuration list for PBXNativeTarget "DHTIOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1946D2F19BDF7A80088DC5B /* Debug */,
+				A1946D3019BDF7A80088DC5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A1946D0319BDF7A80088DC5B /* Project object */;
+}
