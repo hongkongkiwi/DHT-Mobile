@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DHT.h"
 
 @protocol DHTIncomingTransportDelegate;
 
-@interface DHTTransportManager : NSObject <DHTOutgoingTransportDelegate>
+@interface DHTTransportManager : NSObject
 
 @property (nonatomic, weak) id<DHTIncomingTransportDelegate> incomingMessageDelegate;
 @property (nonatomic, assign, readonly) bool isListening;

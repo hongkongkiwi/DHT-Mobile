@@ -57,7 +57,7 @@ withFilterContext:(id)filterContext {
     NSString *host = nil;
     uint16_t port = 0;
     [GCDAsyncUdpSocket getHost:&host port:&port fromAddress:address];
-    [self.incomingMessageDelegate incomingMessage:data fromAddress:host fromPort:port];
+    [self.incomingMessageDelegate incomingMessage:data fromHost:host fromPort:port];
 }
 
 @end

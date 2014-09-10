@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BData.h"
 
 @interface BEncoding : NSObject
 

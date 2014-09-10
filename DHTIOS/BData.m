@@ -53,7 +53,6 @@
 - (void)dealloc
 {
     free(data);
-    [super dealloc];
 }
 
 @end

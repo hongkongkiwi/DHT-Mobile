@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, DHTKRPCErrCode) {
 @property (nonatomic, assign, readonly) NSData *nodeId;
 @property (nonatomic, assign, readonly) uint32_t ipAddress;
 @property (nonatomic, assign, readonly) uint16_t port;
-@property (atomic, assign, readonly) DHTNodeState state;
+@property (atomic, assign, readonly) DHTNodeState pingState;
 @property (nonatomic, weak) DHT *dhtManager;
 
 // Routing
@@ -56,14 +56,14 @@ typedef NS_ENUM(NSUInteger, DHTKRPCErrCode) {
 -(DHTNode *)initWithNodeID:(NSData *)nodeId ipAddressString:(NSString *)ipAddress port:(uint16_t)port;
 -(DHTNode *)initWithNodeID:(NSData *)nodeId ipAddressInt:(uint32_t)ipAddress port:(uint16_t)port;
 
-// ping
 -(void)ping;
 // get_peers
--(void)getPeersForInfoHash:(NSString *)infoHash;
+-(void)getPeersForInfoHash:(NSData *)infoHash;
 // announce_peer
--(void)announcePeerForInfoHash:(NSString *)infoHash port:(NSUInteger)port;
+-(void)announcePeerForInfoHash:(NSData *)infoHash; // uses the current UDP port
+-(void)announcePeerForInfoHash:(NSData *)infoHash port:(NSUInteger)port;
 // find_node
--(void)findNodeWithNodeID:(NSString *)nodeId;
+-(void)findNodeWithNodeID:(NSData *)nodeId;
 
 // Get info
 -(NSString *)nodeIdString;

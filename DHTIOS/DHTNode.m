@@ -17,20 +17,36 @@
 @interface DHTNode()
 @property (nonatomic, strong) GCDTimer *pingTimer; // timer to reping node
 @property (nonatomic, assign) NSUInteger pingAttempts; // How many attempts to ping this node
+@property (nonatomic, strong) NSDate *lastSeen;
+
 @property (nonatomic, strong) M13MutableOrderedDictionary *infoHashes; // Info hashes we are storing
 @property (nonatomic, strong) M13MutableOrderedDictionary *issuedTokens; // tokens we have issued
-@property (nonatomic, strong) M13MutableOrderedDictionary *transactionIds;
 @property (nonatomic, strong) DHTTransportManager *transportManager;
+
+@property (nonatomic, strong) M13MutableOrderedDictionary *transactionIdsUsed;
+@property (nonatomic, strong) NSString *lastTransactionId;
+
+@property (nonatomic, strong) NSMutableArray *buckets;
 @end
+
+NSUInteger const MAX_BUCKET_SIZE = 8;
+
+NSString *const FIND_NODE = @"find_node";
+NSString *const ANNOUNCE_PEER = @"announce_peer";
+NSString *const PING = @"ping";
+NSString *const GET_PEERS = @"get_peers";
 
 @implementation DHTNode
 
-@synthesize state;
+@synthesize pingState;
 
 // Setup some basic class stuff
 -(DHTNode *)init {
     if (self = [super init]) {
-        state = DHTNodeStateUnknown;
+        self.buckets = [NSMutableArray new];
+        [self.buckets addObject:@[]];
+        [self setPingState:DHTNodeStateUnknown];
+        self.lastSeen = [NSDate new];
         self.transportManager = [[DHTTransportManager alloc] init];
     }
     return self;
@@ -103,11 +119,11 @@
     self.pingTimer = [GCDTimer scheduledTimerWithTimeInterval:900.0 repeats:YES block:^{
         if (self.pingAttempts <= 2) {
             if (self.pingAttempts == 2) {
-                self.state = DHTNodeStateQuestionable;
+                self.pingState = DHTNodeStateQuestionable;
             }
             [self ping];
         } else {
-            self.state = DHTNodeStateBad;
+            self.pingState = DHTNodeStateBad;
             [self stopPingTimer];
         }
     }];
@@ -120,80 +136,110 @@
     }
 }
 
+#pragma mark - Routing
+-(void)addNode:(DHTNode *)node {
+    // Check if this is the bootstrap node
+    if ([self.buckets count] == 1 && [self.buckets[0] count] == 0) {
+        NSMutableArray *bucket = [self.buckets[0] mutableCopy];
+        [bucket addObject:node];
+        self.buckets = bucket;
+        [node findNodeWithNodeID:self.nodeId];
+    }
+}
+
+-(void)removeNode:(DHTNode *)node {
+    
+}
+
 #pragma mark - Requests
 // Ping
 -(void)ping {
     self.pingAttempts++;
-    NSDictionary *messageDict = @{
-                                  @"y" : @"q", // This is a query,
-                                  @"q" : @"ping",
-                                  @"t" : [self incrementTransactionIdForQueryType:@"ping"],
-                                  @"a" : @{@"id" : self.nodeId}
-                                  };
+    NSDictionary *request = @{@"y" : @"q", // This is a query,
+                              @"q" : PING,
+                              @"t" : [self getTransactionIdForQueryType:PING],
+                              @"a" : @{@"id" : self.nodeId}};
     
-    [self.transportManager sendMessage:[BEncoding encodeObject:messageDict] toHost:self.ipAddressString toPort:self.port];
+    [self.transportManager sendMessage:[BEncoding encodeObject:request] toHost:self.ipAddressString toPort:self.port];
 }
 
 // get_peers
--(void)getPeersForInfoHash:(NSString *)infoHash {
+-(void)getPeersForInfoHash:(NSData *)infoHash {
     
     
-    NSDictionary *messageDict = @{@"y" : @"q", // This is a query,
-                                  @"q" : @"get_peers",
-                                  @"t" : [self incrementTransactionIdForQueryType:@"get_peers"],
-                                  @"a" : @{
-                                          @"id" : self.nodeId,
-                                          @"info_hash" : infoHash
-                                          }
-                                  };
+    NSDictionary *request = @{@"y" : @"q", // This is a query,
+                              @"q" : GET_PEERS,
+                              @"t" : [self getTransactionIdForQueryType:GET_PEERS],
+                              @"a" : @{@"id" : self.nodeId,
+                                       @"info_hash" : infoHash}};
     
-    [self.transportManager sendMessage:[BEncoding encodeObject:messageDict] toHost:self.ipAddressString toPort:self.port];
+    [self.transportManager sendMessage:[BEncoding encodeObject:request] toHost:self.ipAddressString toPort:self.port];
+}
+
+-(void)announcePeerForInfoHash:(NSData *)infoHash {
+    [self announcePeerForInfoHash:infoHash port:0];
 }
 
 // announce_peer
--(void)announcePeerForInfoHash:(NSString *)infoHash port:(NSUInteger)port {
+-(void)announcePeerForInfoHash:(NSData *)infoHash port:(NSUInteger)port {
     [self getPeersForInfoHash:infoHash];
     
-    NSDictionary *messageDict = @{
-                                  @"y" : @"q", // This is a query,
-                                  @"q" : @"announce_peer",
-                                  @"t" : [self incrementTransactionIdForQueryType:@"announce_peer"],
-                                  @"a" : @{
-                                          @"id" : self.nodeId,
-                                          @"implied_port" : @(0), // forget our port and get udp source
-                                          @"info_hash" : infoHash,
-                                          @"port" : @(port),
-                                          @"token" : @"<opaque token>"
-                                          }
-                                  };
+    NSDictionary *request = @{@"y" : @"q", // This is a query,
+                              @"q" : ANNOUNCE_PEER,
+                              @"t" : [self getTransactionIdForQueryType:ANNOUNCE_PEER],
+                              @"a" : @{@"id" : self.nodeId,
+                                       @"implied_port" : port == 0 ? @(1) : @(0), // forget our port and get udp source
+                                       @"info_hash" : infoHash,
+                                       @"port" : @(port),
+                                       @"token" : @"<opaque token>"}};
     
-    [self.transportManager sendMessage:[BEncoding encodeObject:messageDict] toHost:self.ipAddressString toPort:self.port];
+    [self.transportManager sendMessage:[BEncoding encodeObject:request] toHost:self.ipAddressString toPort:self.port];
 }
 
 // find_node
 -(void)findNodeWithNodeID:(NSData *)nodeId {
-    NSDictionary *messageDict = @{@"y" : @"q", // This is a query,
-                                  @"q" : @"find_node",
-                                  @"t" : [self incrementTransactionIdForQueryType:@"find_node"],
-                                  @"a" : @{@"id" : self.nodeId,
-                                           @"target" : nodeId
-                                           }}; // TODO: Fix this later
+    NSDictionary *request = @{@"y" : @"q", // This is a query,
+                              @"q" : FIND_NODE,
+                              @"t" : [self getTransactionIdForQueryType:FIND_NODE],
+                              @"a" : @{@"id" : self.nodeId,
+                                       @"target" : nodeId}};
     
     // If we are addressing ourself, there is no need for real transport
     if ([nodeId isEqual:self.nodeId]) {
-        return [self handleIncomingFindNode:messageDict fromHost:self.ipAddressString fromPort:self.port];
+        return [self handleIncomingFindNode:request fromHost:self.ipAddressString fromPort:self.port];
     }
     
-    [self.transportManager sendMessage:[BEncoding encodeObject:messageDict] toHost:self.ipAddressString toPort:self.port];
+    [self.transportManager sendMessage:[BEncoding encodeObject:request] toHost:self.ipAddressString toPort:self.port];
 }
 
-#pragma mark - Responses
+#pragma mark - Response Handlers
+-(void)pingResponse:(NSDictionary *)response {
+    if (response[@"a"][@"id"] && response[@"a"][@"id"] == self.nodeId) {
+        self.pingState = DHTNodeStateGood;
+        self.lastSeen = [NSDate new];
+    }
+}
+
+-(void)findNodeResponse:(NSDictionary *)response {
+    
+}
+
+-(void)announcePeerResponse:(NSDictionary *)response {
+    
+}
+
+-(void)getPeersResponse:(NSDictionary *)response {
+    
+}
+
+
+#pragma mark - Incoming Request Handlers
 -(void)handleIncomingPing:(NSDictionary *)request fromHost:(NSString *)fromHost fromPort:(NSUInteger)fromPort {
     // Do request error checking
     if (!request[@"t"] ||
         !request[@"a"] ||
         !request[@"a"][@"id"]) {
-        return [self sendError:DHTKRPCErrCodeProtocolError];
+        return [self sendError:DHTKRPCErrCodeProtocolError fromHost:fromHost fromPort:fromPort];
     }
     
     NSDictionary *messageDict = @{@"y" : @"r",
@@ -212,7 +258,7 @@
         !request[@"a"][@"info_hash"] ||
         !request[@"a"][@"token"] ||
         !request[@"a"][@"port"]) {
-        return [self sendError:DHTKRPCErrCodeProtocolError];
+        return [self sendError:DHTKRPCErrCodeProtocolError fromHost:fromHost fromPort:fromPort];
     }
     
     NSData *infoHashData = request[@"a"][@"info_hash"];
@@ -220,21 +266,18 @@
     NSString *token = request[@"a"][@"token"];
     NSDictionary *tokenIssueRequest = self.issuedTokens[token];
     if (!tokenIssueRequest) {
-        return [self sendError:DHTKRPCErrCodeProtocolError];
+        return [self sendError:DHTKRPCErrCodeProtocolError fromHost:fromHost fromPort:fromPort];
     }
     NSDate *tokenIssueTime = tokenIssueRequest[@"issued_on"];
     NSString *issuedIpAddress = tokenIssueRequest[@"ip_address"];
     if (!tokenIssueTime ||
         !issuedIpAddress) {
-        return [self sendError:DHTKRPCErrCodeProtocolError];
+        return [self sendError:DHTKRPCErrCodeProtocolError fromHost:fromHost fromPort:fromPort];
     }
     if (![issuedIpAddress isEqualToString:fromHost]) {
-        return [self sendError:DHTKRPCErrCodeProtocolError];
+        return [self sendError:DHTKRPCErrCodeProtocolError fromHost:fromHost fromPort:fromPort];
     }
-    NSTimeInterval secondsBetweenDates = [[NSDate new] timeIntervalSinceDate:tokenIssueTime];
-    if (secondsBetweenDates > 600) {
-        return [self sendError:DHTKRPCErrCodeProtocolError];
-    }
+
     
     // Build the incoming peer contact info
     NSMutableData *peerContactInfo = [NSMutableData new];
@@ -281,7 +324,7 @@
     }
     
     NSDictionary *messageDict = @{@"y" : @"r", // This is a query,
-                                  @"t" : request[@"t"], // TODO: Fix this later
+                                  @"t" : request[@"t"],
                                   @"r" : response
                                   };
     
@@ -293,8 +336,7 @@
     
     NSDictionary *messageDict = @{@"y" : @"r", // This is a query,
                                   @"t" : request[@"t"],
-                                  @"r" : @{@"nodes" : [self getClosestNodesForNodeID:request[@"a"][@"target"] numberOfNodes:8]}
-                                  };
+                                  @"r" : @{@"nodes" : [self getClosestNodesForNodeID:request[@"a"][@"target"] numberOfNodes:8]}};
     [self.transportManager sendMessage:[BEncoding encodeObject:messageDict] toHost:fromHost toPort:fromPort];
 }
 
@@ -325,29 +367,54 @@
 
 -(void)sendError:(DHTKRPCErrCode)errorCode description:(NSString *)description transactionId:(NSString *)transactionId fromHost:(NSString *)fromHost fromPort:(NSUInteger)fromPort {
     NSDictionary *messageDict = @{@"y" : @"e",
-                                  @"t" : transactionId ? transactionId : @"aa",
-                                  @"e" : @[@(errorCode), description]
-                                  };
+                                  @"t" : (transactionId && [transactionId length] == 2) ? transactionId : @"aa",
+                                  @"e" : @[@(errorCode), description]};
     
     [self.transportManager sendMessage:[BEncoding encodeObject:messageDict] toHost:fromHost toPort:fromPort];
 }
 
 -(void)handleIncomingData:(NSData *)data fromHost:(NSString *)fromHost fromPort:(uint16_t)fromPort {
-    NSDictionary *request = [BEncoding bdecodeDict:data];
+    NSDictionary *incomingDict = [BEncoding bdecodeDict:[[BData alloc] initWithData:data]];
     
-    if (!request[@"q"]) {
-        return [self sendError:DHTKRPCErrCodeProtocolError description:@"Invalid q argument" transactionId:request[@"t"]];
+    if (!incomingDict[@"y"] || (!incomingDict[@"q"] && ([incomingDict[@"y"] isEqualToString:@"q"])) || !incomingDict[@"t"]) {
+        return [self sendError:DHTKRPCErrCodeProtocolError description:@"Invalid q argument" transactionId:incomingDict[@"t"] fromHost:fromHost fromPort:fromPort];
     }
     
-    if ([request[@"q"] isEqualToString:@"find_node"]) {
-        [self handleIncomingFindNode:request fromHost:fromHost fromPort:fromPort];
-    } else if ([request[@"q"] isEqualToString:@"announce_peer"])  {
-        [self handleIncomingAnnouncePeer:request fromHost:fromHost fromPort:fromPort];
-    } else if ([request[@"q"] isEqualToString:@"get_peers"])  {
-        [self handleIncomingGetPeers:request fromHost:fromHost fromPort:fromPort];
-    } else {
-        return [self sendError:DHTKRPCErrCodeMethodUknown transactionId:request[@"t"]];
+    // Handle incoming requests
+    if ([incomingDict[@"y"] isEqualToString:@"q"]) {
+        if ([incomingDict[@"q"] isEqualToString:FIND_NODE]) {
+            return [self handleIncomingFindNode:incomingDict fromHost:fromHost fromPort:fromPort];
+        } else if ([incomingDict[@"q"] isEqualToString:ANNOUNCE_PEER])  {
+            return [self handleIncomingAnnouncePeer:incomingDict fromHost:fromHost fromPort:fromPort];
+        } else if ([incomingDict[@"q"] isEqualToString:GET_PEERS])  {
+            return [self handleIncomingGetPeers:incomingDict fromHost:fromHost fromPort:fromPort];
+        }
+    // Handle incoming responses
+    } else if ([incomingDict[@"y"] isEqualToString:@"r"]) {
+        NSDictionary *txDict = [self.transactionIdsUsed objectForKey:incomingDict[@"t"]];
+        NSString *method = txDict ? txDict[@"type"] : nil;
+        NSDate *queryTime = txDict ? txDict[@"time"] : nil;
+        if (!txDict || !method || !queryTime) {
+            return [self sendError:DHTKRPCErrCodeProtocolError transactionId:incomingDict[@"t"] fromHost:fromHost fromPort:fromPort];
+        }
+        NSTimeInterval secondsBetweenDates = [[NSDate new] timeIntervalSinceDate:queryTime];
+        if (secondsBetweenDates > 30) {
+            self.pingState = DHTNodeStateQuestionable;
+            return [self sendError:DHTKRPCErrCodeProtocolError fromHost:fromHost fromPort:fromPort];
+        }
+        
+        if ([method isEqualToString:PING]) {
+            return [self pingResponse:incomingDict];
+        } else if ([method isEqualToString:ANNOUNCE_PEER]) {
+            return [self announcePeerResponse:incomingDict];
+        } else if ([method isEqualToString:GET_PEERS]) {
+            return [self getPeersResponse:incomingDict];
+        } else if ([method isEqualToString:FIND_NODE]) {
+            return [self findNodeResponse:incomingDict];
+        }
     }
+    
+    return [self sendError:DHTKRPCErrCodeMethodUknown transactionId:incomingDict[@"t"] fromHost:fromHost fromPort:fromPort];
 }
 
 // Compact node info
@@ -378,17 +445,17 @@
                           ((self.ipAddress >> 0) & 0xFF)];
 }
 
--(DHTNodeState)state {
+-(DHTNodeState)pingState {
     @synchronized(self) {
-        return state;
+        return pingState;
     }
 }
 
--(void)setState:(DHTNodeState)newState {
+-(void)setPingState:(DHTNodeState)newState {
     @synchronized(self) {
-        state = newState;
+        pingState = newState;
     }
-    [self.delegate dhtNode:self didChangeState:self.state];
+    [self.delegate dhtNode:self didChangeState:newState];
 }
 
 -(NSData *)distanceFromOtherNode:(DHTNode *)otherNode {
@@ -417,29 +484,31 @@
     return newIP;
 }
 
--(NSString *)incrementTransactionIdForQueryType:(NSString *)queryType {
-    NSString *lastUsedId = [[self.transactionIds objectForKey:queryType] lowercaseString];
-    if (!lastUsedId ||
-        [lastUsedId length] == 0 ||
-        [lastUsedId isEqualToString:@"zz"]) {
-        [self.transactionIds setObject:@"aa" forKey:queryType];
-        return @"aa";
+-(NSString *)getTransactionIdForQueryType:(NSString *)queryType {
+    if (!self.lastTransactionId || [self.lastTransactionId length] == 0 || [self.lastTransactionId isEqualToString:@"zz"]) {
+        self.lastTransactionId = @"aa";
+    } else {
+        self.lastTransactionId = [self incrementTXID:self.lastTransactionId];
     }
+    [self.transactionIdsUsed setObject:@{@"type": queryType, @"time": [NSDate new]} forKey:self.lastTransactionId];
+    
+    return self.lastTransactionId;
+}
+
+-(NSString *)incrementTXID:(NSString *)txId {
     const unichar z = 0x007A;
     
-    NSUInteger length = [lastUsedId length];
+    NSUInteger length = [txId length];
     unichar aBuffer[length];
     
-    [lastUsedId getCharacters:aBuffer range:NSMakeRange(0, length)];
+    [txId getCharacters:aBuffer range:NSMakeRange(0, length)];
     
     if (aBuffer[0] != z) {
         aBuffer[0]++;
     } else if (aBuffer[1] != z) {
         aBuffer[1]++;
     }
-    lastUsedId = [NSString stringWithCharacters:aBuffer length:length];
-    [self.transactionIds setObject:lastUsedId forKey:queryType];
-    return lastUsedId;
+    return [NSString stringWithCharacters:aBuffer length:length];
 }
 
 @end
